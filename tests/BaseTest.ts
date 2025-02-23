@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { LoginPage } from "../pages/login.page";
+import { LoginPage } from "../pages/Login.page";
 
 export class BaseTest {
     private loginPage: LoginPage

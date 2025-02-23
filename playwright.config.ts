@@ -31,7 +31,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
     
-    headless: false,  // Chạy trình duyệt trong chế độ không ẩn (headful)
+    headless: true,  // Chạy trình duyệt trong chế độ không ẩn (headful)
     viewport: { width: 1280, height: 720 },
    
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -42,7 +42,10 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://www.saucedemo.com/'
+       },
     },
 /*
     {
