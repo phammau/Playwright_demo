@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/login.page';
-import { InventoryPage } from '../pages/inventory.page';
+import { LoginPage } from '../pages/Login.page';
+import { InventoryPage } from '../pages/Inventory.page';
 
 test('Test01', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/')
