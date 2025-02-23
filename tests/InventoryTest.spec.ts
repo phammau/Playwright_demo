@@ -3,15 +3,7 @@ import { LoginPage } from "../pages/Login.page";
 import { InventoryPage } from '../pages/Inventory.page';
 import { InventoryItem } from "../pages/InventoryItem.page";
 
-const test = base.extend<{ loginPage: LoginPage, inventoryPage: InventoryPage }>({
-    // loginPage: async ({ page }, use) => {
-    //     const loginPage = new LoginPage(page);
-    //     await loginPage.goto();
-    //     await loginPage.inputUsername('standard_user');
-    //     await loginPage.inputPassword('secret_sauce');
-    //     await loginPage.clickBtnLogin();
-    //     await use(loginPage);
-    // },
+const test = base.extend<{ inventoryPage: InventoryPage }>({
     inventoryPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await loginPage.goto();
