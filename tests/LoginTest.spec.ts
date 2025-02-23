@@ -1,13 +1,16 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { LoginPage } from '../pages/Login.page';
 import { InventoryPage } from '../pages/Inventory.page';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('')
+const test = base.extend<{ loginPage: LoginPage }>({
+  loginPage: async ({ page }, use) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await use(loginPage);
+  },
 });
 
-test('Test01', async ({ page }) => {
-  const loginPage = new LoginPage(page)
+test('Test01', async ({ page, loginPage }) => {
   await loginPage.inputUsername("standard_user")
   await loginPage.inputPassword("secret_sauce")
   await loginPage.clickBtnLogin()
@@ -15,24 +18,21 @@ test('Test01', async ({ page }) => {
   expect(await inventoryPage.isDisPlayOk()).toBeTruthy()
 });
 
-test('Test02', async ({ page }) => {
-  const loginPage = new LoginPage(page)
+test('Test02', async ({ loginPage }) => {
   await loginPage.inputUsername("abc")
   await loginPage.inputPassword("secret_sauce")
   await loginPage.clickBtnLogin()
   expect(await loginPage.getErrorMessage(), "Epic sadface: Username and password do not match any user in this service")
 });
 
-test('Test03', async ({ page }) => {
-  const loginPage = new LoginPage(page)
+test('Test03', async ({ loginPage }) => {
   await loginPage.inputUsername("standard_user")
   await loginPage.inputPassword("abc")
   await loginPage.clickBtnLogin()
   expect(await loginPage.getErrorMessage(), "Epic sadface: Username and password do not match any user in this service")
 });
 
-test('Test04', async ({ page }) => {
-  const loginPage = new LoginPage(page)
+test('Test04', async ({ loginPage }) => {
   await loginPage.inputUsername("abc")
   await loginPage.inputPassword("dfg")
   await loginPage.clickBtnLogin()

@@ -15,12 +15,9 @@ export class LoginPage extends BasePage {
         this.message_error = this.page.locator("h3[data-test='error']")
     }
 
+    async goto() { await this.page.goto('') }
     async inputUsername(username: string) { await this.input_username.fill(username) }
-
     async inputPassword(password: string) { await this.input_password.fill(password) }
-
     async clickBtnLogin() { await this.btn_login.click() }
-
-    async getErrorMessage() { return await this.message_error.textContent() }
-        
+    async getErrorMessage() { return await this.message_error.textContent() }        
 }

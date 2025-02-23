@@ -1,20 +1,34 @@
-import test, { expect } from "@playwright/test";
+import {test as  base, expect } from "@playwright/test";
 import { LoginPage } from "../pages/Login.page";
 import { InventoryPage } from '../pages/Inventory.page';
-import { BaseTest } from "./BaseTest";
 import { InventoryItem } from "../pages/InventoryItem.page";
 
-test ('testAddToCart', async ({ page }) =>{
-    await page.goto('https://www.saucedemo.com/')
-    const baseTest = new BaseTest()
-    baseTest.loginAutoInventoryPage(page)
+const test = base.extend<{ loginPage: LoginPage, inventoryPage: InventoryPage }>({
+    // loginPage: async ({ page }, use) => {
+    //     const loginPage = new LoginPage(page);
+    //     await loginPage.goto();
+    //     await loginPage.inputUsername('standard_user');
+    //     await loginPage.inputPassword('secret_sauce');
+    //     await loginPage.clickBtnLogin();
+    //     await use(loginPage);
+    // },
+    inventoryPage: async ({ page }, use) => {
+        const loginPage = new LoginPage(page);
+        await loginPage.goto();
+        await loginPage.inputUsername('standard_user');
+        await loginPage.inputPassword('secret_sauce');
+        await loginPage.clickBtnLogin();
 
-    const inventoryPage = new InventoryPage(page)
+        const inventoryPage = new InventoryPage(page);
+        await use(inventoryPage);
+    }
+});
+
+test('testAddToCart', async ({ inventoryPage }) => {
     let expectCount = 0
     expect(await inventoryPage.getCartCount()).toBe(expectCount)
 
-    const productItems = await inventoryPage.getProductItems()// Lấy danh sách sản phẩm từ trang inventory
-
+    const productItems = await inventoryPage.getProductItems()
     for (const productItem of productItems) {
         expectCount++
         await productItem.clickAddToCartBtn()
@@ -28,13 +42,8 @@ test ('testAddToCart', async ({ page }) =>{
     }
 });
 
-test.only('testClickProductItem', async ({ page }) =>{
-    await page.goto("https://www.saucedemo.com/")
-    const baseTest = new BaseTest()
-    await baseTest.loginAutoInventoryPage(page)
-    const inventoryPage = new InventoryPage(page)
-    const productItems = await inventoryPage.getProductItems()
-   
+test('testClickProductItem', async ({ page, inventoryPage }) => {
+    const productItems = await inventoryPage.getProductItems()   
     for (const productItem of productItems) {
         let expectedName = await productItem.getName()
         let expectedPrice = await productItem.getPrice()
