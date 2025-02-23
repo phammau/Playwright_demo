@@ -14,29 +14,17 @@ export class InventoryPage extends BasePage{
         this.productElements = this.page.locator("//div[@class='inventory_item']")
     }
 
-    isDisPlayOk() {
-        return this.header.isVisible()
-    }
+    isDisPlayOk() { return this.header.isVisible() }
     
     async getCartCount() {
-        const count = await this.cartCount.textContent()
-        if (count == "" || count == null) {
-            return 0
-        }
+        let count = await this.cartCount.textContent()
+        if (!count) return 0 
         return Number(count)
     }
 
-    async getProductItem() {
-        const elements = await this.productElements.all()
-        if (elements.length ==0) {
-            return []
-        }
-        const productItems: ProductItem[] = []
-        for (let i = 0; i<elements.length; i++) {
-            const productItem = new ProductItem(this.page,i)
-            productItems.push(productItem)
-        }
-        return productItems
-    }
-   
+    async getProductItems() {
+        const elements = await this.productElements.all()//Tìm tất cả sản phẩm trên trang
+        if (elements.length === 0) return []//đô dài mảng = 0 thì trả về mảng rổng
+        return elements.map((_, i) => new ProductItem(this.page, i)) // trả về một mảng các đối tượng ProductItem, mỗi đối tượng đại diện cho một sản phẩm trên trang
+}
 }
