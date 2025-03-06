@@ -22,7 +22,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
 
   //workers: process.env.CI ? 1 : undefined,//phan chính
-  workers:4,
+  workers: 5,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
@@ -30,10 +30,10 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
-    
-    headless: false,  // Chạy trình duyệt trong chế độ không ẩn (headful)
+
+    headless: false,  // Chay khong an (headful)
     viewport: { width: 1280, height: 720 },
-   
+
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
@@ -42,19 +42,23 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-/*
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+      use: {
+        baseURL: "https://www.saucedemo.com/",
+        ...devices['Desktop Chrome']
+      },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
     },
-*/
+    /*
+        {
+          name: 'firefox',
+          use: { ...devices['Desktop Firefox'] },
+        },
+    
+        {
+          name: 'webkit',
+          use: { ...devices['Desktop Safari'] },
+        },
+    */
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
