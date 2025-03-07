@@ -11,11 +11,8 @@ const test = base.extend<{ loginPage: LoginPage }>({
 });
 
 test('Test01', async ({ loginPage, page }) => {
-  await loginPage.inputUsername("standard_user");
-  await loginPage.inputPassword("secret_sauce");
-  await loginPage.clickBtnLogin();
+  await loginPage.loginAuto();
   const inventoryPage = new InventoryPage(page);
-
   expect(await inventoryPage.isDisplayOk()).toBeTruthy();
 });
 
