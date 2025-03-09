@@ -6,16 +6,14 @@ import { ProductItem } from "../pages/ProductItem.page";
 import { CheckoutStepOne } from "../pages/CheckoutStepOne.page";
 import { CheckoutStepTwo } from "../pages/CheckoutStepTwo.page";
 const test = base.extend<{ loginPage: LoginPage, inventoryPage: InventoryPage, cartPage: CartPage }>({
-
     loginPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await loginPage.loginAuto();
         await use(loginPage);
     },
-
     inventoryPage: async ({ loginPage, page }, use) => {
         const inventoryPage = new InventoryPage(page);
-        const productItem = new ProductItem(page, 0);
+        const productItem = new ProductItem(page, 1);
         await productItem.clickAddToCartBtn();
         await inventoryPage.clickShoppingCart();
         await use(inventoryPage);

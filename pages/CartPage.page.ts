@@ -8,7 +8,6 @@ export class CartPage extends BasePage {
     private readonly btn_continueShopping: Locator;
     private readonly btn_checkout: Locator;
     private readonly cart: Locator;
-
     constructor(page: Page) {
         super(page);
         this.title = this.page.locator("//span[@class='title']");
@@ -19,12 +18,13 @@ export class CartPage extends BasePage {
     }
     async isDisplayOk() { await this.title.isVisible() }
     async clickShoppingContinue() { await this.btn_continueShopping.click() }
+    async clickShoppingCart() { await this.cart.click() }
+    async clickCheckout() { await this.btn_checkout.click() }
     async getCartItems() {
         const items = await this.cartItems.all();
         if (items.length === 0) return [];
         return items.map((_, i) => new CartItem(this.page, i));
     }
-
     async getCartCount() {
         if (!(await this.cart.isVisible())) {//neu khong co phan tu thi tra ve 0
             return 0;
@@ -32,6 +32,4 @@ export class CartPage extends BasePage {
         let count = await this.cart.textContent();
         return count ? Number(count) : 0;
     }
-    async clickShoppingCart() { await this.cart.click() }
-    async clickCheckout() { await this.btn_checkout.click() }
 } 

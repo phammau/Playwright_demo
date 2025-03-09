@@ -8,7 +8,6 @@ export class ProductItem extends BasePage {
     private readonly price: Locator;
     private readonly btn_addToCart: Locator;
     private readonly remoteBtn: Locator;
-
     constructor(page: Page, index: number) {
         super(page);
         index++;
@@ -19,7 +18,6 @@ export class ProductItem extends BasePage {
         this.btn_addToCart = this.page.locator("//div[@class='inventory_item'][" + index + "]//button[text()='Add to cart']");
         this.remoteBtn = this.page.locator("//div[@class='inventory_item'][" + index + "]//button[text()='Remove']");
     }
-
     async getPrice() {
         const priceText = await this.price.textContent();
         return priceText ? parseFloat(priceText.replace(/[^0-9.]/g, "")) : 0; // ep kieu

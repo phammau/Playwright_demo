@@ -10,7 +10,6 @@ export class CheckoutStepOne extends BasePage {
     private readonly postalCode: Locator;
     private readonly btn_continue: Locator;
     private readonly error: Locator;
-
     constructor(page: Page) {
         super(page);
         this.title = this.page.locator("//span[@class='title']");

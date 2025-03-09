@@ -15,7 +15,6 @@ export class CartItem extends BasePage {
         this.price = this.page.locator("//div[@class='cart_item'][" + index + "] //div[@class='inventory_item_price']");
         this.btn_remote = this.page.locator("//div[@class='cart_item'][" + index + "] //button[text()='Remove']");
     }
-
     async getName() { return await this.name.textContent() }
     async getDescription() { return await this.description.textContent() }
     async getPrice() {

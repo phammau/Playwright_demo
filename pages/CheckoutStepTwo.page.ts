@@ -11,7 +11,6 @@ export class CheckoutStepTwo extends BasePage {
     private readonly productItems: Locator
     private readonly title: Locator;
     private readonly itemTotal: Locator;
-
     constructor(page: Page) {
         super(page);
         this.title = this.page.locator("//span[@class='title']")

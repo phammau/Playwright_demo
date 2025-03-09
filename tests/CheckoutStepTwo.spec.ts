@@ -9,20 +9,16 @@ import { InventoryItem } from "../pages/InventoryItem.page";
 import { ProductItem } from "../pages/ProductItem.page";
 
 const test = base.extend<{ loginPage: LoginPage, inventoryPage: InventoryPage }>({
-
     loginPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await loginPage.loginAuto();
         await use(loginPage);
     },
-
     inventoryPage: async ({ loginPage, page }, use) => {
         const inventoryPage = new InventoryPage(page);
         await use(inventoryPage);
     },
-
 });
-
 test('testLoginCheckoutStepTwo01', async ({ inventoryPage, page }) => {
     const inventoryItems = await inventoryPage.getProductItems();
     let inventoryItemsActual: any[] = []; //khong chac chan kieu du lieu nên dung any[]
@@ -44,7 +40,6 @@ test('testLoginCheckoutStepTwo01', async ({ inventoryPage, page }) => {
         let expectedName = await checkoutStepTwoItems[i].getName();
         let expectedDescription = await checkoutStepTwoItems[i].getDescription();
         let expectedPrice = await checkoutStepTwoItems[i].getPrice();
-
         expect(expectedName).toEqual(inventoryItemsActual[i].actualName);
         expect(expectedPrice).toEqual(inventoryItemsActual[i].actualPrice);
         expect(expectedDescription).toEqual(inventoryItemsActual[i].actualDescription);
@@ -80,5 +75,4 @@ test("testFinishCheckoutComplete", async ({ inventoryPage, page }) => {
     await checkoutComplete.clickBtnBackToHome();
     inventoryPage = new InventoryPage(page);
     expect(await inventoryPage.getCartCount()).toEqual(0);
-
 });

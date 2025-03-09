@@ -4,7 +4,6 @@ import { BasePage } from "./BasePage.page";
 export class CheckoutComplete extends BasePage {
     private readonly title: Locator;
     private readonly btn_backHome: Locator;
-
     constructor(page: Page) {
         super(page);
         this.title = this.page.locator("//span[@class='title']")
